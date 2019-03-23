@@ -14,9 +14,6 @@ class Module {
             'shared' => [
                 'goaliomailservice_message'   => false
             ],
-            'invokables' => [
-                'goaliomailservice_message'   => 'GoalioMailService\Mail\Service\Message',
-            ],
             'factories' => [
                 'goaliomailservice_options'   => 'GoalioMailService\Mail\Options\Service\TransportOptionsFactory',
                 'goaliomailservice_transport' => 'GoalioMailService\Mail\Transport\Service\TransportFactory',
