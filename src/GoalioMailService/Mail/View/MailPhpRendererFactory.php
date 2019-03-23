@@ -1,28 +1,26 @@
 <?php
-
 namespace GoalioMailService\Mail\View;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\View\Renderer\PhpRenderer;
 
 class MailPhpRendererFactory implements FactoryInterface {
-
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $renderer = new PhpRenderer();
 
-        $helperManager = $serviceLocator->get('ViewHelperManager');
-        $resolver      = $serviceLocator->get('ViewResolver');
+        $helperManager = $container->get('ViewHelperManager');
+        $resolver      = $container->get('ViewResolver');
 
         $renderer->setHelperPluginManager($helperManager);
         $renderer->setResolver($resolver);
 
-        $application = $serviceLocator->get('Application');
+        $application = $container->get('Application');
         $event       = $application->getMvcEvent();
 
         if($event !== null) {
-            $model = $serviceLocator->get('Application')->getMvcEvent()->getViewModel();
+            $model = $container->get('Application')->getMvcEvent()->getViewModel();
 
             $modelHelper = $renderer->plugin('view_model');
             $modelHelper->setRoot($model);

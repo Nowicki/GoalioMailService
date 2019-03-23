@@ -1,15 +1,16 @@
 <?php
 namespace GoalioMailService\Mail\Transport\Service;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\ServiceManager\FactoryInterface;
+use GoalioMailService\Mail\Options\TransportOptions;
+use Interop\Container\ContainerInterface;
+use Zend\Mail\Transport\Factory;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class TransportFactory implements FactoryInterface {
-
-    public function createService(ServiceLocatorInterface $serviceLocator) {
-
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
         /** @var TransportOptions $options */
-        $config = $serviceLocator->get('config');
+        $config = $container->get('config');
         $options = $config['goaliomailservice'];
 
         // Backwards compatibility with old config files
@@ -21,6 +22,6 @@ class TransportFactory implements FactoryInterface {
             $options['options'] = $options['transport_options'];
         }
 
-        return \Zend\Mail\Transport\Factory::create($options);
+        return Factory::create($options);
     }
 }

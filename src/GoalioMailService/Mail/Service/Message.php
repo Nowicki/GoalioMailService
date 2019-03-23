@@ -1,35 +1,20 @@
 <?php
 namespace GoalioMailService\Mail\Service;
 
+use Psr\Container\ContainerInterface;
 use Zend\Mime\Mime;
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\Mail\Message as MailMessage;
 use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Part as MimePart;
 
-class Message implements ServiceManagerAwareInterface {
-
-    /**
-     *
-     * @var ServiceManager
-     */
+class Message {
     protected $serviceManager;
 
-    /**
-     *
-     * @param ServiceManager $serviceManager
-     * @return AbstractService
-     */
-    public function setServiceManager(ServiceManager $serviceManager) {
-        $this->serviceManager = $serviceManager;
-        return $this;
+    public function __construct(ContainerInterface $container)
+    {
+        $this->serviceManager = $container;
     }
 
-    /**
-     *
-     * @return ServiceManager
-     */
     public function getServiceManager() {
         return $this->serviceManager;
     }

@@ -15,15 +15,14 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "zendframework/zendframework": ">=2.3.3"
+        "php": ">=7.2",
+        "zendframework/zend-servicemanager": "~3.0",
+        "zendframework/zend-mvc": "~3.1",
+        "zendframework/zend-mail": "~2.10"
     },
     "autoload": {
         "psr-0": {
             "GoalioMailService": "src/"
-        },
-        "classmap": [
-            "./Module.php"
-        ]
+        }
     }
 }
